@@ -1,0 +1,8 @@
+{
+  "model": "LinearRegression",
+  "dataset": "train",
+  "MAE": 4163.55,
+  "RMSE": 5877.98,
+  "R2": 0.7743,
+  "intercept": 13612.25
+}

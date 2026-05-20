@@ -1,0 +1,8 @@
+{
+  "model": "CatBoostRegressor",
+  "dataset": "test",
+  "MAE": 2645.8735,
+  "RMSE": 4701.807,
+  "R2": 0.8383,
+  "overfit": 0.0638
+}

@@ -1,0 +1,8 @@
+{
+  "model": "LinearRegression",
+  "dataset": "test",
+  "MAE": 4325.76,
+  "RMSE": 6130.99,
+  "R2": 0.725,
+  "overfit": 0.0493
+}

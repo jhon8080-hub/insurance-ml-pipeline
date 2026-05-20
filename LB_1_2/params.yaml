@@ -1,0 +1,3 @@
+nn_epochs: 500
+nn_batch_size: 32
+nn_learning_rate: 0.001

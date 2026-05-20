@@ -1,0 +1,12 @@
+{
+  "model": "XGBRegressor",
+  "dataset": "train",
+  "n_estimators": 300,
+  "learning_rate": 0.05,
+  "max_depth": 6,
+  "subsample": 0.8,
+  "colsample_bytree": 0.8,
+  "MAE": 1384.0455,
+  "RMSE": 2496.3534,
+  "R2": 0.9593
+}

@@ -1,0 +1,7 @@
+{
+  "model": "LinearRegression",
+  "dataset": "val",
+  "MAE": 4246.76,
+  "RMSE": 6316.67,
+  "R2": 0.6743
+}

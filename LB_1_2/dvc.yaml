@@ -1,0 +1,275 @@
+stages:
+  load_data:
+    cmd: python src/load_data.py
+    deps:
+      - src/load_data.py
+      - data/insurance.csv
+    outs:
+      - data/raw_data.csv
+
+  preprocess:
+    cmd: python src/preprocess.py
+    deps:
+      - src/preprocess.py
+      - data/raw_data.csv
+    outs:
+      - data/processed_data.csv
+
+  feature_engineering:
+    cmd: python src/feature_engineering.py
+    deps:
+      - src/feature_engineering.py
+      - data/processed_data.csv
+    outs:
+      - data/featured_data.csv
+
+  split_data:
+    cmd: python src/split_data.py
+    deps:
+      - src/split_data.py
+      - data/featured_data.csv
+    outs:
+      - data/X_train.csv
+      - data/y_train.csv
+      - data/X_val.csv
+      - data/y_val.csv
+      - data/X_test.csv
+      - data/y_test.csv
+      - data/X_train_scaled.csv
+      - data/X_val_scaled.csv
+      - data/X_test_scaled.csv
+      - models/scaler_X.pkl
+
+  # ============= ЛИНЕЙНАЯ РЕГРЕССИЯ =============
+  LR_train_model:
+    cmd: python src/LR_train.py
+    deps:
+      - src/LR_train.py
+      - data/X_train_scaled.csv
+      - data/y_train.csv
+    outs:
+      - models/LR_model.pkl
+      - metrics/LR_metrics.json
+
+  LR_validate_model:
+    cmd: python src/LR_val.py
+    deps:
+      - src/LR_val.py
+      - data/X_val_scaled.csv
+      - data/y_val.csv
+      - models/LR_model.pkl
+    outs:
+      - metrics/LR_val_metrics.json
+
+  LR_test_model:
+    cmd: python src/LR_test.py
+    deps:
+      - src/LR_test.py
+      - data/X_test_scaled.csv
+      - data/y_test.csv
+      - models/LR_model.pkl
+    outs:
+      - metrics/LR_test_metrics.json
+
+  LR_analyze:
+    cmd: python src/LR_analyze.py
+    deps:
+      - src/LR_analyze.py
+      - models/LR_model.pkl
+      - data/X_train_scaled.csv
+    outs:
+      - metrics/LR_analysis_report.txt
+
+  # ============= ДЕРЕВО РЕШЕНИЙ =============
+  DT_train_model:
+    cmd: python src/DT_train.py
+    deps:
+      - src/DT_train.py
+      - data/X_train.csv
+      - data/y_train.csv
+    outs:
+      - models/DT_model.pkl
+      - metrics/DT_metrics.json
+
+  DT_test_model:
+    cmd: python src/DT_test.py
+    deps:
+      - src/DT_test.py
+      - data/X_test.csv
+      - data/y_test.csv
+      - models/DT_model.pkl
+    outs:
+      - metrics/DT_test_metrics.json
+
+  DT_visualize:
+    cmd: python src/DT_visualize.py
+    deps:
+      - src/DT_visualize.py
+      - models/DT_model.pkl
+      - data/X_train.csv
+    outs:
+      - models/DT_tree_structure.png
+
+  DT_analyze:
+    cmd: python src/DT_analyze.py
+    deps:
+      - src/DT_analyze.py
+      - models/DT_model.pkl
+      - data/X_train.csv
+      - metrics/DT_metrics.json
+      - metrics/DT_test_metrics.json
+    outs:
+      - metrics/DT_analysis_report.txt
+      - metrics/DT_feature_importance.csv
+
+  # ============= CATBOOST =============
+  CB_train_model:
+    cmd: python src/CB_train.py
+    deps:
+      - src/CB_train.py
+      - data/X_train.csv
+      - data/y_train.csv
+      - data/X_val.csv
+      - data/y_val.csv
+    outs:
+      - models/CB_model.cbm
+      - metrics/CB_metrics.json
+
+  CB_test_model:
+    cmd: python src/CB_test.py
+    deps:
+      - src/CB_test.py
+      - data/X_test.csv
+      - data/y_test.csv
+      - models/CB_model.cbm
+    outs:
+      - metrics/CB_test_metrics.json
+
+  CB_feature_importance:
+    cmd: python src/CB_importance.py
+    deps:
+      - src/CB_importance.py
+      - models/CB_model.cbm
+      - data/X_train.csv
+    outs:
+      - metrics/CB_feature_importance.csv
+      - models/CB_feature_importance.png
+      - metrics/CB_importance_analysis.json
+
+  CB_analyze:
+    cmd: python src/CB_analyze.py
+    deps:
+      - src/CB_analyze.py
+      - metrics/CB_metrics.json
+      - metrics/CB_test_metrics.json
+      - metrics/CB_feature_importance.csv
+    outs:
+      - metrics/CB_analysis_report.txt
+
+  # ============= XGBOOST =============
+  XGB_train_model:
+    cmd: python src/XGB_train.py
+    deps:
+      - src/XGB_train.py
+      - data/X_train.csv
+      - data/y_train.csv
+      - data/X_val.csv
+      - data/y_val.csv
+    outs:
+      - models/XGB_model.json
+      - metrics/XGB_metrics.json
+
+  XGB_test_model:
+    cmd: python src/XGB_test.py
+    deps:
+      - src/XGB_test.py
+      - data/X_test.csv
+      - data/y_test.csv
+      - models/XGB_model.json
+    outs:
+      - metrics/XGB_test_metrics.json
+
+  XGB_feature_importance:
+    cmd: python src/XGB_importance.py
+    deps:
+      - src/XGB_importance.py
+      - models/XGB_model.json
+      - data/X_train.csv
+    outs:
+      - metrics/XGB_feature_importance.csv
+      - models/XGB_feature_importance.png
+      - metrics/XGB_importance_analysis.json
+
+  XGB_analyze:
+    cmd: python src/XGB_analyze.py
+    deps:
+      - src/XGB_analyze.py
+      - metrics/XGB_metrics.json
+      - metrics/XGB_test_metrics.json
+      - metrics/XGB_feature_importance.csv
+    outs:
+      - metrics/XGB_analysis_report.txt
+
+  # ============= НЕЙРОННАЯ СЕТЬ =============
+  NN_train_model:
+    cmd: python src/NN_train.py
+    deps:
+      - src/NN_train.py
+      - data/X_train_scaled.csv
+      - data/y_train.csv
+      - data/X_val_scaled.csv
+      - data/y_val.csv
+    outs:
+      - models/NN_model.pkl
+      - metrics/NN_metrics.json
+      - metrics/NN_training_history.csv
+      - plots/NN_learning_curves.png
+    params:
+      - nn_epochs
+      - nn_batch_size
+      - nn_learning_rate
+
+  NN_test_model:
+    cmd: python src/NN_test.py
+    deps:
+      - src/NN_test.py
+      - models/NN_model.pkl
+      - models/scaler_X.pkl
+      - data/X_test_scaled.csv
+      - data/y_test.csv
+    outs:
+      - metrics/NN_test_metrics.json
+
+  NN_weights_histograms:
+    cmd: python src/NN_weights_histograms.py
+    deps:
+      - src/NN_weights_histograms.py
+      - models/NN_model.pkl
+    outs:
+      - plots/weights/
+      - metrics/NN_weights_analysis.json
+
+  NN_analyze:
+    cmd: python src/NN_analyze.py
+    deps:
+      - src/NN_analyze.py
+      - metrics/NN_metrics.json
+      - metrics/NN_test_metrics.json
+      - metrics/NN_training_history.csv
+      - metrics/NN_weights_analysis.json
+    outs:
+      - metrics/NN_full_report.txt
+
+  # ============= СРАВНЕНИЕ =============
+  compare_models:
+    cmd: python src/compare_models.py
+    deps:
+      - src/compare_models.py
+      - metrics/LR_test_metrics.json
+      - metrics/DT_test_metrics.json
+      - metrics/CB_test_metrics.json
+      - metrics/XGB_test_metrics.json
+      - metrics/NN_test_metrics.json
+    outs:
+      - metrics/comparison_report.txt
+      - plots/models_comparison.png

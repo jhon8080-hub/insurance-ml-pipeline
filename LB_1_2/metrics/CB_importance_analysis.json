@@ -1,0 +1,9 @@
+{
+  "top1_feature": "smoker",
+  "top1_importance": 77.33,
+  "top2_feature": "bmi",
+  "top2_importance": 12.77,
+  "top3_feature": "age",
+  "top3_importance": 7.42,
+  "top3_cumulative": 97.52
+}

@@ -1,0 +1,10 @@
+{
+  "model": "CatBoostRegressor",
+  "dataset": "train",
+  "iterations": 300,
+  "learning_rate": 0.05,
+  "depth": 6,
+  "MAE": 2099.0322,
+  "RMSE": 3871.1446,
+  "R2": 0.9021
+}

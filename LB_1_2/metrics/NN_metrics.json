@@ -1,0 +1,35 @@
+{
+  "model_type": "NeuralNetwork",
+  "train_date": "2026-05-20 00:57:28",
+  "params": {
+    "epochs": 500,
+    "batch_size": 32,
+    "learning_rate": 0.001
+  },
+  "architecture": [
+    {
+      "layer": "Dense128",
+      "activation": "relu",
+      "dropout": 0.3
+    },
+    {
+      "layer": "Dense64",
+      "activation": "relu",
+      "dropout": 0.2
+    },
+    {
+      "layer": "Dense32",
+      "activation": "relu"
+    },
+    {
+      "layer": "Dense1",
+      "activation": "linear"
+    }
+  ],
+  "train_mae": 2564.2378159693367,
+  "train_rmse": 4244.060590650296,
+  "train_r2": 0.8823245162660848,
+  "n_features": 9,
+  "n_samples": 746,
+  "epochs_trained": 69
+}

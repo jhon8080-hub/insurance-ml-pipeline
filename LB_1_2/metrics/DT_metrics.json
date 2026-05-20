@@ -1,0 +1,9 @@
+{
+  "model": "DecisionTreeRegressor",
+  "dataset": "train",
+  "max_depth": 6,
+  "min_samples_leaf": 10,
+  "MAE": 2172.96,
+  "RMSE": 3896.0,
+  "R2": 0.9008
+}

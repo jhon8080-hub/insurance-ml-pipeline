@@ -1,0 +1,8 @@
+{
+  "model": "XGBRegressor",
+  "dataset": "test",
+  "MAE": 2982.2375,
+  "RMSE": 4901.2142,
+  "R2": 0.8242,
+  "overfit": 0.1351
+}

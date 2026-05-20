@@ -1,0 +1,8 @@
+{
+  "model": "Keras NN",
+  "dataset": "test",
+  "MAE": 2941.57,
+  "RMSE": 4977.86,
+  "R2": 0.8187,
+  "overfit": 0.0774
+}

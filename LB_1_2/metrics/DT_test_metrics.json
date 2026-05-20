@@ -1,0 +1,8 @@
+{
+  "model": "DecisionTreeRegressor",
+  "dataset": "test",
+  "MAE": 2741.0929,
+  "RMSE": 4781.088,
+  "R2": 0.8328,
+  "overfit": 0.068
+}
